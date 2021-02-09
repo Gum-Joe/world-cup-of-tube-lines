@@ -377,12 +377,7 @@ function Game({
           <span className="progress" style={{ width: `${player1pct}%` }} />
           <span className="label">
             {player1
-              ? player1 +
-                (hasStarted
-                  ? useVotes
-                    ? ` (${parseFloat(player1pct).toFixed(2)}%)`
-                    : ` (${p1votes} votes)`
-                  : "")
+              ? player1
               : "???"}
           </span>
         </div>
@@ -391,7 +386,7 @@ function Game({
             "player",
             "player2",
             player2
-              ? player2.toLowerCase().replace(/\s/g, "_")
+              ? player2.toLowerCase().replace(/(\s|&)/g, "_")
               : "unknown-player",
             hasStarted && "started"
           )}
@@ -399,12 +394,7 @@ function Game({
           <span className="progress" style={{ width: `${player2pct}%` }} />
           <span className="label">
             {player2
-              ? player2 +
-                (hasStarted
-                  ? useVotes
-                    ? ` (${parseFloat(player2pct).toFixed(2)}%)`
-                    : ` (${p2votes} votes)`
-                  : "")
+              ? player2
               : "???"}
           </span>
         </div>
