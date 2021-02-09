@@ -4,6 +4,8 @@ import "./stages.css"
 import CupData from "../cup.json"
 import KnownPlayers from "../knownPlayers.json"
 import useStateWithLocalStorage from "../useStateWithLocalStorage"
+import { Match } from "../../../tubeCupSimulator"
+import { getRank } from "./simulator"
 
 const RefreshTime = 60
 
@@ -168,6 +170,38 @@ export default function Stages() {
     // }
   }, [gameData, timeRemaining, setTimeRemaining])
 
+  const simed = getRank("CableCar");
+
+  function getValues(data): Match[] {
+    const dataArray = [];
+    for (let o in data) {
+      dataArray.push(data[o]);
+    }
+    return dataArray;
+  }
+
+  const gameNamesKnock = [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+  ];
+  const gameNamesQF = [
+    "a1",
+    "a2",
+    "b1",
+    "b2",
+  ];
+
+  const gameNamesSemi = [
+    "a1",
+    "b1",
+  ];
+
   return (
     <>
       <p>
@@ -201,8 +235,8 @@ export default function Stages() {
         <p className="label" style={{ gridArea: "playoffLabel" }}>
           Playoff
         </p>
-        {gameData &&
-          gameData.map(g => (
+        {/*gameData &&
+          getValues(simed).map(g => (
             <Game
               key={g.name}
               gameName={g.name}
@@ -216,7 +250,93 @@ export default function Stages() {
               useVotes={!useVotes}
               tweetId={g.id}
             />
-          ))}
+          ))*/}
+
+          {
+            simed.knockout.map((g, index) =>
+              <Game
+                key={index} 
+                gameName={"knockout" + gameNamesKnock[index]}
+                player1={g.a}
+                player2={g.b}
+                p1votes={100}
+                p2votes={100}
+                player1pct={0 * 100}
+                player2pct={0 * 100}
+                hasStarted={true}
+                useVotes={!useVotes}
+                tweetId={"#"}
+              />
+            )
+          }
+        {
+          simed.qFinal.map((g, index) =>
+            <Game
+              key={index}
+              gameName={"quarter" + gameNamesQF[index]}
+              player1={g.a}
+              player2={g.b}
+              p1votes={100}
+              p2votes={100}
+              player1pct={0 * 100}
+              player2pct={0 * 100}
+              hasStarted={true}
+              useVotes={!useVotes}
+              tweetId={"#"}
+            />
+          )
+        }
+        {
+          simed.semiFinal.map((g, index) =>
+            <Game
+              key={index}
+              gameName={"semi" + gameNamesSemi[index]}
+              player1={g.a}
+              player2={g.b}
+              p1votes={100}
+              p2votes={100}
+              player1pct={0 * 100}
+              player2pct={0 * 100}
+              hasStarted={true}
+              useVotes={!useVotes}
+              tweetId={"#"}
+            />
+          )
+        }
+        {
+          [simed.final].map((g, index) =>
+            <Game
+              key={index}
+              gameName={"final"}
+              player1={g.a}
+              player2={g.b}
+              p1votes={100}
+              p2votes={100}
+              player1pct={0 * 100}
+              player2pct={0 * 100}
+              hasStarted={true}
+              useVotes={!useVotes}
+              tweetId={"#"}
+            />
+          )
+        }
+        {
+          [simed.runnerUp].map((g, index) =>
+            <Game
+              key={index}
+              gameName={"playoff"}
+              player1={g.a}
+              player2={g.b}
+              p1votes={100}
+              p2votes={100}
+              player1pct={0 * 100}
+              player2pct={0 * 100}
+              hasStarted={true}
+              useVotes={!useVotes}
+              tweetId={"#"}
+            />
+          )
+        }
       </article>
     </>
   )
