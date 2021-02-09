@@ -170,6 +170,10 @@ export default function Stages() {
     // }
   }, [gameData, timeRemaining, setTimeRemaining])
 
+
+  /**
+   * TODO: THIS IS THE LINE TO CHANGE TO SET WHO SHOULD WIN!
+   */
   const simed = getRank("CableCar");
 
   function getValues(data): Match[] {
